@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pract6Triggers.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="HotPink" Padding="24" CornerRadius="0">
+            <Label Text="Trigguers" HorizontalTextAlignment="Center" TextColor="White" FontSize="24"/>
+        </Frame>
+
+        <!--Primero.- Activadores de datos-->
+        <Entry x:Name="entry"
+       Text=""
+       Placeholder="required field" />
+
+        <Button x:Name="button" Text="Save" BackgroundColor="Coral"
+        FontSize="Large"
+        HorizontalOptions="Center">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                     Binding="{Binding Source={x:Reference entry},
+                                       Path=Text.Length}"
+                     Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <!-- multiple Setters elements are allowed -->
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+
+        <!--Segundo.- Activadores de propiedad-->
+
+        <Entry Placeholder="enter name">
+            <Entry.Triggers>
+                <Trigger TargetType="Entry"
+                 Property="IsFocused" Value="True">
+                    <Setter Property="BackgroundColor" Value="Yellow" />
+                    <!-- multiple Setters elements are allowed -->
+                </Trigger>
+            </Entry.Triggers>
+        </Entry>
+
+        <!--Tercero.- Aplicando un disparador usando un estilo-->
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <Style TargetType="Entry">
+                    <Style.Triggers>
+                        <Trigger TargetType="Entry"
+                         Property="IsFocused" Value="True">
+                            <Setter Property="BackgroundColor" Value="Yellow" />
+                            <!-- multiple Setters elements are allowed -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    </StackLayout>
+</ContentPage>
